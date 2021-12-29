@@ -1,7 +1,7 @@
     int lengthOfLongestSubstring(string s) {
         int i=0, j=0, ans=0;
         unordered_set<char> set;
-        
+        //siding window
         while (j < s.size())
         {
             if(set.find(s[j])== set.end())//If the character does not in the set
