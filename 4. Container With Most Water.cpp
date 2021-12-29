@@ -7,11 +7,11 @@ public:
         while(p1<p2){
                 if(height[p1]<height[p2]){
                     max_a = max(max_a,height[p1]*(p2-p1));
-                    p1+=1;
+                    ++p1;
                 }
                 else{
                     max_a = max(max_a,height[p2]*(p2-p1));
-                    p2-=1;
+                    --p2;
                 }
             }
         return max_a;
