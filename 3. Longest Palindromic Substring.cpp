@@ -9,6 +9,9 @@ public:
         }
         return s.substr(i,j-i+1);
     }
+    /*expanding over every character
+    checking the max length of the palindrome string
+    for both add & even lengths*/
     
     string longestPalindrome(string s) {
         if(s.length()==0)
