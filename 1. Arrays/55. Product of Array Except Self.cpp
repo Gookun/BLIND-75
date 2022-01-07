@@ -6,20 +6,20 @@ SC = O(1)*/
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int n = nums.size(), temp = 1;
+        int n = nums.size(), prefix=1,postfix=1;
         vector<int> res(n);
         
         // Put in each index in res the product of all elements before it:
         for (int i=0; i<n; i++) {
-            res[i] = temp;
-            temp *= nums[i];
+            res[i] = prefix;
+            prefix *= nums[i];
         }
         
         // Now multiply each one with all the elements after it:
-        temp = 1;
+        postfix = 1;
         for (int i=n-1; i>=0; i--) {
-            res[i] *= temp;
-            temp *= nums[i];
+            res[i] *= postfix;
+            postfix *= nums[i];
         }
         
         return res;
@@ -32,14 +32,14 @@ public:
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int n = nums.size()-1, left = 1, right = 1;
+        int n = nums.size()-1, prefix = 1, postfix = 1;
         vector<int> res(n+1, 1);
 
         for (int i=0; i<=n; i++) {
-            res[i] *= left;
-            res[n-i] *= right;
-            left *= nums[i];
-            right *= nums[n-i];
+            res[i] *= prefix;
+            res[n-i] *= postfix;
+            prefix *= nums[i];
+            postfix *= nums[n-i];
         }
         
         return res;
