@@ -8,32 +8,32 @@ public:
                     to find b,c use two pointers, 
                     left/right on remaining list;*/
     vector<vector<int>> threeSum(vector<int>& nums) {
-               vector<vector<int>> res; 
+        vector<vector<int>> res; 
         sort(nums.begin(), nums.end()); 
         
-        for (int i = 0; i < (int)(nums.size())-2; i++) {
+        for (int i = 0; i < (int)nums.size()-1; i++) {
             
-            if (i == 0 || (i > 0 && nums[i] != nums[i-1])) {
+            if (i > 0 && nums[i] == nums[i-1])
+                continue;
                 
-                int lo = i+1, hi = (int)(nums.size())-1, sum = 0 - nums[i];
+                int l = i+1, r = (int)(nums.size())-1;
                 
-                while (lo < hi) {
-                    if (nums[lo] + nums[hi] == sum) {
-                        
-                        vector<int> temp; 
+                while (l < r) {
+                    int threeSum = nums[i] + nums[l] +nums[r];
+                    if(threeSum>0)
+                        r -= 1;
+                    else if(threeSum<0)
+                        l += 1;
+                    else{
+                        vector<int> temp;
                         temp.push_back(nums[i]); 
-                        temp.push_back(nums[lo]); 
-                        temp.push_back(nums[hi]); 
+                        temp.push_back(nums[l]); 
+                        temp.push_back(nums[r]); 
                         res.push_back(temp);
-                        
-                        while (lo < hi && nums[lo] == nums[lo+1]) lo++;
-                        while (lo < hi && nums[hi] == nums[hi-1]) hi--;
-                        
-                        lo++; hi--;
-                    } 
-                    else if (nums[lo] + nums[hi] < sum) lo++;
-                    else hi--;
-               }
+                        l+=1; 
+                        while(nums[l] == nums[l-1] && l<r)
+                            l+=1;
+                    }
             }
         }
         return res;
