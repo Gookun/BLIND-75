@@ -1,32 +1,30 @@
+//T.C = O(N) & S.C =O(N)
 class Solution {
 public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) 
-    {
-        vector<vector<int>> result;
-        
-        for (size_t i = 0; i < intervals.size(); i++)
-        {
-			//  the new interval is after the range of other interval, so we can leave the current interval baecause the new one does not overlap with it
-            if (intervals[i][1] < newInterval[0])
-            {
-                result.push_back(intervals[i]);
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> ans;
+        for(auto x: intervals){
+        	/*if new interval's end value is smaller 
+        	than the start value of the current
+        	interval*/
+            if(newInterval[1]<x[0]){
+                ans.push_back(newInterval);
+                newInterval = x;
+                //take the new interval and insert it into the result
             }
-			// the new interval's range is before the other, so we can add the new interval and update it to the current one
-            else if (intervals[i][0] > newInterval[1])
-            {
-                result.push_back(newInterval);
-                newInterval = intervals[i]; 
+            /*if the start value of the new interval 
+            is greater than the end value of current
+            interval*/
+            else if(newInterval[0]>x[1]){
+                ans.push_back(x);
             }
-			// the new interval is in the range of the other interval, we have an overlap, so we must choose the min for start and max for end of interval 
-            else if(intervals[i][1] >= newInterval[0] || intervals[i][0] <= newInterval[1])
-            {
-                newInterval[0] = min(intervals[i][0], newInterval[0]);
-                newInterval[1] = max(newInterval[1], intervals[i][1]);
-
-            }
+            //in case of overlapping
+            else{
+                newInterval[0] = min(x[0],newInterval[0]);
+                newInterval[1] = max(x[1],newInterval[1]);
+            }            
         }
-        
-        result.push_back(newInterval); 
-        return result;
+        ans.push_back(newInterval);
+        return ans;
     }
 };
